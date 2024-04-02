@@ -2,59 +2,96 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TNetSdk;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Assembly_CSharp
 {
     public class PUNConnectAndTeam: Photon.PunBehaviour
     {
         public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
-        string _gameVersion = "1";
+        string _gameVersion = "1.0.0";
         public byte MaxPlayersPerRoom = 4;
+        public GameObject playerPrefab;
 
         private void Start()
         {
+            
+            if (playerPrefab == null)
+            {
+                Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
+            }
+            else
+            {
+                if (Crazy_PlayerControl_Net.player == null)
+                {
+                    Debug.Log("We are Instantiating LocalPlayer from " + Application.loadedLevelName);
+                    // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 0.1f, 6f), Quaternion.identity, 0);
+                }
+                else
+                {
+                    Debug.Log("Ignoring scene load for " + Application.loadedLevelName);
+                }
+            }
+
             Connect();
         }
 
         void Awake()
         {
             PhotonNetwork.logLevel = Loglevel;
-            PhotonNetwork.autoJoinLobby = false;
+            //PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;
-            PhotonNetwork.playerName = "WALLE";
+            //PhotonNetwork.playerName = "WALLE";
         }
+
         public void Connect()
         {
             PhotonNetwork.ConnectUsingSettings(_gameVersion);
         }
 
-        public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
-        {
-            Debug.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
-            // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-            PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = MaxPlayersPerRoom }, null);
-        }
-
-        public override void OnJoinedRoom()
-        {
-            PhotonNetwork.LoadLevel("CrazyScene" + Crazy_GlobalData_Net.Instance.sceneID.ToString("D03"));
-            Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        }
-
-        #region Photon.PunBehaviour CallBacks
-
         public override void OnConnectedToMaster()
+        {
+            PhotonNetwork.JoinLobby(TypedLobby.Default);
+        }
+
+        public override void OnJoinedLobby()
         {
             PhotonNetwork.JoinRandomRoom();
         }
 
-        public override void OnDisconnectedFromPhoton()
+        public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
         {
-            Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
+            Debug.Log("No random room available, so we create one.");
+            PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = MaxPlayersPerRoom }, TypedLobby.Default);
         }
 
-        #endregion
+        public override void OnJoinedRoom()
+        {
+            if (PhotonNetwork.isMasterClient)
+            {
+                Crazy_GlobalData.next_scene = "CrazyScene00";
+                PhotonNetwork.LoadLevel("CrazyScene00");
+            }
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+        {
+            //if (PhotonNetwork.isMasterClient)
+            //{
+            //    Crazy_GlobalData.next_scene = "CrazyScene00";
+            //    PhotonNetwork.LoadLevel("CrazyScene00");
+            //}
+        }
+
+        public override void OnDisconnectedFromPhoton()
+        {
+            Debug.LogWarning("OnDisconnectedFromPhoton()");
+        }
+
     }
 }

@@ -19,8 +19,10 @@ public class Crazy_LevelModify
 			value = ReadXml("normal3");
 			modifyinfo.Add(Crazy_LevelType.Normal3, value);
 			value = ReadXml("boss");
-			modifyinfo.Add(Crazy_LevelType.Boss, value);
-		}
+			modifyinfo.Add(Crazy_LevelType.Boss, value); 
+			value = ReadXml("netboss");
+            modifyinfo.Add(Crazy_LevelType.NetBoss, value);
+        }
 	}
 
 	protected static Crazy_LevelModify ReadXml(string path)
