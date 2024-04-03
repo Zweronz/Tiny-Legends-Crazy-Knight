@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -217,7 +218,7 @@ public class Crazy_UtilUIPanelShopContainer : TUIContainer
 		{
 			UnityEngine.Object.Destroy(weaponObj);
 		}
-		weaponObj = UnityEngine.Object.Instantiate(Resources.Load(weapon.loadpath)) as GameObject;
+		weaponObj = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load(weapon.loadpath)) as GameObject;
 		weaponObj.name = "Weapon";
 		weaponObj.transform.parent = FindWeaponBone(weapon.type, m_char).transform;
 		weaponObj.transform.localPosition = weapon.modifyPos;

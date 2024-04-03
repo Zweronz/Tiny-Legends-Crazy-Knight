@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -205,7 +206,7 @@ public class Crazy_Global
 
 	public static GameObject LoadAssetsPrefab(string path)
 	{
-		return UnityEngine.Object.Instantiate(Resources.Load(path)) as GameObject;
+		return GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load(path)) as GameObject;
 	}
 
 	public static Vector2 RotatebyAngle(Vector2 original, Vector2 forward, float angle, float distance)

@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -318,12 +319,12 @@ public class Crazy_PlayerControl : Crazy_ObjectControl, IColliderMessage
 		{
 			player_color.Add(materials[i], materials[i].color);
 		}
-		GameObject gameObject = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/level up/level up_model_pfb")) as GameObject;
+		GameObject gameObject = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/level up/level up_model_pfb")) as GameObject;
 		gameObject.transform.parent = base.transform;
 		gameObject.transform.localPosition = new Vector3(0f, 0.2f, 0f);
 		levelupmodel = gameObject.GetComponent("Crazy_PlayAnimation") as Crazy_PlayAnimation;
 		levelupmodel.Hide();
-		gameObject = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/level up/level up_pfb")) as GameObject;
+		gameObject = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/level up/level up_pfb")) as GameObject;
 		gameObject.transform.parent = base.transform;
 		gameObject.transform.localPosition = new Vector3(0f, 0.2f, 0f);
 		levelupeffect = gameObject.GetComponent("Crazy_ParticleSequenceScript") as Crazy_ParticleSequenceScript;
@@ -331,15 +332,15 @@ public class Crazy_PlayerControl : Crazy_ObjectControl, IColliderMessage
 		MeshRenderer meshRenderer = screenblood.GetComponent("MeshRenderer") as MeshRenderer;
 		blood_color = meshRenderer.material.color;
 		CloseBloodEffect();
-		invincibleObj = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/invincible/invincible_pfb")) as GameObject;
+		invincibleObj = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/invincible/invincible_pfb")) as GameObject;
 		invincibleObj.transform.parent = RootNode.transform;
-		speedupObj = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/speed up/speedup_pfb")) as GameObject;
+		speedupObj = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/speed up/speedup_pfb")) as GameObject;
 		speedupObj.transform.parent = base.transform;
 		speedupObj.transform.localPosition = new Vector3(0f, 0.2f, 0f);
-		increaseblood = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/increase blood/increase blood_pfb")) as GameObject;
+		increaseblood = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/increase blood/increase blood_pfb")) as GameObject;
 		increaseblood.transform.parent = base.transform;
 		increaseblood.transform.localPosition = Vector3.zero;
-		hurteffectObj = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/attack/attack_player/attack_player")) as GameObject;
+		hurteffectObj = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/attack/attack_player/attack_player")) as GameObject;
 		hurteffectObj.transform.parent = base.transform;
 		hurteffectObj.transform.localPosition = new Vector3(0f, 1f, 0f);
 		back_camera_pos = mainCameraObj.transform.localPosition;
@@ -1360,7 +1361,7 @@ public class Crazy_PlayerControl : Crazy_ObjectControl, IColliderMessage
 
 	public GameObject GetArrow(Transform position)
 	{
-		return UnityEngine.Object.Instantiate(Resources.Load("Prefabs/bowarrow/bowarrow_pfb"), position.position, position.rotation) as GameObject;
+		return GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/bowarrow/bowarrow_pfb"), position.position, position.rotation) as GameObject;
 	}
 
 	public void PlayArrowEffect()

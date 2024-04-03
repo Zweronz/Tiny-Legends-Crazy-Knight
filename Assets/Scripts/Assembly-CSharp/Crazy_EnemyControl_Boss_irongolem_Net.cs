@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -62,19 +63,19 @@ public class Crazy_EnemyControl_Boss_irongolem_Net : Crazy_EnemyControl_Boss_Net
 		base.GetComponent<Animation>()["Attack03_03_merge"].wrapMode = WrapMode.ClampForever;
 		base.GetComponent<Animation>()["Forward01_merge"].wrapMode = WrapMode.Loop;
 		base.GetComponent<Animation>()["Death01_merge"].wrapMode = WrapMode.ClampForever;
-		cyclonebig = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/BossSkillNew/Cyclone/CycloneBig_pfb")) as GameObject;
+		cyclonebig = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/BossSkillNew/Cyclone/CycloneBig_pfb")) as GameObject;
 		cyclonebig.transform.parent = base.gameObject.transform;
 		cyclonebig.transform.localPosition = Vector3.zero;
 		cyclonebig.transform.localEulerAngles = Vector3.zero;
-		fallstoretrigger = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/BossSkillNew/FallStore/FallStoreTrigger_pfb")) as GameObject;
+		fallstoretrigger = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/BossSkillNew/FallStore/FallStoreTrigger_pfb")) as GameObject;
 		fallstoretrigger.transform.parent = base.gameObject.transform;
 		fallstoretrigger.transform.localPosition = Vector3.zero;
 		fallstoretrigger.transform.localEulerAngles = Vector3.zero;
-		shakewave = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/BossSkillNew/ShakeWave/ShakeWave_pfb")) as GameObject;
+		shakewave = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/BossSkillNew/ShakeWave/ShakeWave_pfb")) as GameObject;
 		shakewave.transform.parent = base.gameObject.transform;
 		shakewave.transform.localPosition = Vector3.zero;
 		shakewave.transform.localEulerAngles = Vector3.zero;
-		appear = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/BossSkillNew/Appear/Appear_pfb")) as GameObject;
+		appear = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/BossSkillNew/Appear/Appear_pfb")) as GameObject;
 		appear.transform.parent = base.gameObject.transform;
 		appear.transform.localPosition = Vector3.zero;
 		appear.transform.localEulerAngles = Vector3.zero;
@@ -290,7 +291,7 @@ public class Crazy_EnemyControl_Boss_irongolem_Net : Crazy_EnemyControl_Boss_Net
 
 	protected void FallStoreOnce(Vector3 position)
 	{
-		GameObject gameObject = UnityEngine.Object.Instantiate(fallstore.gameObject) as GameObject;
+		GameObject gameObject = GameUtils.InstantiateAsGameObject<GameObject>(fallstore.gameObject) as GameObject;
 		gameObject.transform.position = position;
 		gameObject.GetComponent<Crazy_Fallen>().SetTarget(target);
 		gameObject.SendMessage("Trigger", SendMessageOptions.DontRequireReceiver);
@@ -390,7 +391,7 @@ public class Crazy_EnemyControl_Boss_irongolem_Net : Crazy_EnemyControl_Boss_Net
 				cyclone.moveDir.Normalize();
 				cyclone.TargetList.Clear();
 				cyclone.TargetList.Add(target);
-				UnityEngine.Object.Instantiate(cyclone.gameObject, base.transform.position, base.transform.rotation);
+				GameUtils.InstantiateAsGameObject<GameObject>(cyclone.gameObject, base.transform.position, base.transform.rotation);
 			}
 		}
 	}

@@ -1,7 +1,8 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crazy_MyScene
+public class Crazy_MyScene : Photon.PunBehaviour
 {
 	protected Vector3 playerposition = new Vector3(0f, 0.1f, 6f);
 
@@ -99,7 +100,7 @@ public class Crazy_MyScene
 		playerCom.SetEffect(playereffect);
 		PropsAction.Init();
 		PropsAction.playerControl = playerCom;
-		GameObject gameObject2 = Object.Instantiate(Resources.Load(crazy_Weapon.loadpath)) as GameObject;
+		GameObject gameObject2 = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load(crazy_Weapon.loadpath));
 		gameObject2.name = "Weapon";
 		GameObject person = GameObject.Find("Player");
 		gameObject2.transform.parent = FindWeaponBone(crazy_Weapon.type, person).transform;
@@ -200,7 +201,7 @@ public class Crazy_MyScene
 			Object.Destroy(gameObject2);
 		}
 		playerCom.DeleteCurWeapon();
-		GameObject gameObject3 = Object.Instantiate(Resources.Load(crazy_Weapon.loadpath)) as GameObject;
+		GameObject gameObject3 = GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load(crazy_Weapon.loadpath));
 		gameObject3.name = "Weapon";
 		GameObject person = GameObject.Find("Player");
 		gameObject3.transform.parent = FindWeaponBone(crazy_Weapon.type, person).transform;

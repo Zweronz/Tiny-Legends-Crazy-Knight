@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using UnityEngine;
 
@@ -48,7 +49,7 @@ public class UtilUIIAP : MonoBehaviour
 		{
 			if (i != 0)
 			{
-				GameObject gameObject2 = UnityEngine.Object.Instantiate(gameObject) as GameObject;
+				GameObject gameObject2 = GameUtils.InstantiateAsGameObject<GameObject>(gameObject) as GameObject;
 				gameObject2.name = info[i].id;
 				gameObject2.transform.parent = gameObject.transform.parent;
 				gameObject2.transform.localPosition = new Vector3(-92 + i % num * 115 + i / (num * num2) * 290, 47 - i % (num * num2) / num * 100, 0f);

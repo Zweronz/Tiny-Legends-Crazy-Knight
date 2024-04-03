@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -56,7 +57,7 @@ public class UtilUIDropList : MonoBehaviour
 		{
 			Crazy_Weapon crazy_Weapon = weapons[i];
 			bool flag = Crazy_Data.CurData().GetWeapon()[crazy_Weapon.id];
-			GameObject gameObject2 = UnityEngine.Object.Instantiate(gameObject) as GameObject;
+			GameObject gameObject2 = GameUtils.InstantiateAsGameObject<GameObject>(gameObject) as GameObject;
 			gameObject2.name = "Weapon" + crazy_Weapon.id;
 			gameObject2.transform.parent = gameObject.transform.parent;
 			gameObject2.transform.localPosition = new Vector3(105f, 70f - (float)i * deltay, 0f);
@@ -105,7 +106,7 @@ public class UtilUIDropList : MonoBehaviour
 			GameObject gameObject4 = gameObject3;
 			if (k != 0)
 			{
-				gameObject4 = UnityEngine.Object.Instantiate(gameObject3) as GameObject;
+				gameObject4 = GameUtils.InstantiateAsGameObject<GameObject>(gameObject3) as GameObject;
 				gameObject4.name = string.Format("PageDot{0:D02}", k + 1);
 				gameObject4.transform.parent = gameObject3.transform.parent;
 			}

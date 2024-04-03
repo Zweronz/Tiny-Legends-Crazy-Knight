@@ -285,7 +285,7 @@ public class TAudioEffectRandom : ITAudioEvent
 			if (!base.GetComponent<AudioSource>().loop)
 			{
 				StopAllCoroutines();
-				StartCoroutine(PlayOver(audioClip.length / base.GetComponent<AudioSource>().pitch));
+				//StartCoroutine(PlayOver(audioClip.length / base.GetComponent<AudioSource>().pitch));
 			}
 			SendTriggerEvent(audioClip);
 		}

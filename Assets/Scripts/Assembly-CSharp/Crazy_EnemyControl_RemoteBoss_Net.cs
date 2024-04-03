@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using UnityEngine;
 
@@ -196,7 +197,7 @@ public class Crazy_EnemyControl_RemoteBoss_Net : Crazy_EnemyControl_MidBoss_Net
 		gameObject.transform.localPosition = new Vector3(-0.37f, 0.89f, 1.59f);
 		for (int i = 0; i < number_item; i++)
 		{
-			GameObject gameObject2 = UnityEngine.Object.Instantiate(remote_item, gameObject.transform.position, base.transform.rotation) as GameObject;
+			GameObject gameObject2 = GameUtils.InstantiateAsGameObject<GameObject>(remote_item, gameObject.transform.position, base.transform.rotation) as GameObject;
 			gameObject2.transform.parent = base.transform.parent;
 			gameObject2.SendMessage("SetTarget", target, SendMessageOptions.DontRequireReceiver);
 			Vector3 vector = ((i != 0) ? new Vector3(UnityEngine.Random.Range(-7f, 7f), 0f, UnityEngine.Random.Range(-7f, 7f)) : Vector3.zero);

@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -30,7 +31,7 @@ public class UtilClipRect : MonoBehaviour
 	{
 		ClipCenterX = (ClipRect.x + ClipRect.xMax) / 2f;
 		ClipCenterY = (ClipRect.y + ClipRect.yMax) / 2f;
-		newCamera = UnityEngine.Object.Instantiate(ClipCamera) as Camera;
+		newCamera = GameUtils.InstantiateAsGameObject<Camera>(ClipCamera) as Camera;
 		newCamera.name = "ClipCamera";
 		newCamera.transform.parent = ClipCamera.transform.parent;
 		newCamera.cullingMask = 1 << ClipLayer;

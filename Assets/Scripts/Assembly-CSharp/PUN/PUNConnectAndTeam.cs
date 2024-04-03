@@ -15,29 +15,9 @@ namespace Assets.Scripts.Assembly_CSharp
         public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
         string _gameVersion = "1.0.0";
         public byte MaxPlayersPerRoom = 4;
-        public GameObject playerPrefab;
 
         private void Start()
         {
-            
-            if (playerPrefab == null)
-            {
-                Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
-            }
-            else
-            {
-                if (Crazy_PlayerControl_Net.player == null)
-                {
-                    Debug.Log("We are Instantiating LocalPlayer from " + Application.loadedLevelName);
-                    // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 0.1f, 6f), Quaternion.identity, 0);
-                }
-                else
-                {
-                    Debug.Log("Ignoring scene load for " + Application.loadedLevelName);
-                }
-            }
-
             Connect();
         }
 
@@ -72,20 +52,20 @@ namespace Assets.Scripts.Assembly_CSharp
 
         public override void OnJoinedRoom()
         {
-            if (PhotonNetwork.isMasterClient)
-            {
-                Crazy_GlobalData.next_scene = "CrazyScene00";
-                PhotonNetwork.LoadLevel("CrazyScene00");
-            }
-        }
-
-        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
-        {
             //if (PhotonNetwork.isMasterClient)
             //{
             //    Crazy_GlobalData.next_scene = "CrazyScene00";
             //    PhotonNetwork.LoadLevel("CrazyScene00");
             //}
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+        {
+            if (PhotonNetwork.playerList.Count() == 2 && PhotonNetwork.isMasterClient)
+            {
+                Crazy_GlobalData.next_scene = "CrazyScene00";
+                PhotonNetwork.LoadLevel("CrazyScene00");
+            }
         }
 
         public override void OnDisconnectedFromPhoton()

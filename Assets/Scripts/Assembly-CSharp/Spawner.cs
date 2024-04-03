@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class Spawner : MonoBehaviour
 			objects = new GameObject[cacheSize];
 			for (int i = 0; i < cacheSize; i++)
 			{
-				objects[i] = (GameObject)UnityEngine.Object.Instantiate(prefab);
+				objects[i] = GameUtils.InstantiateAsGameObject<GameObject>(prefab);
 				objects[i].SetActiveRecursively(false);
 				objects[i].name = objects[i].name + i;
 			}
@@ -81,7 +82,7 @@ public class Spawner : MonoBehaviour
 		}
 		if (objectCache == null)
 		{
-			return (GameObject)UnityEngine.Object.Instantiate(prefab, position, rotation);
+			return GameUtils.InstantiateAsGameObject<GameObject>(prefab, position, rotation);
 		}
 		GameObject nextObjectInCache = objectCache.GetNextObjectInCache();
 		nextObjectInCache.transform.position = position;

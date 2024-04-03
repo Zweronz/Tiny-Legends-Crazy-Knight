@@ -1,3 +1,4 @@
+using Assets.Scripts.Assembly_CSharp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -613,7 +614,7 @@ public class PlayerAnimationSynchronizer : AnimationSynchronizer
 
 	public GameObject GetArrow(Transform position)
 	{
-		return UnityEngine.Object.Instantiate(Resources.Load("Prefabs/bowarrow/bowarrow_pfb_image"), position.position, position.rotation) as GameObject;
+		return GameUtils.InstantiateAsGameObject<GameObject>(Resources.Load("Prefabs/bowarrow/bowarrow_pfb_image"), position.position, position.rotation) as GameObject;
 	}
 
 	public void PlayArrowEffect()
